@@ -1,0 +1,264 @@
+% mnras_template.tex 
+%
+% LaTeX template for creating an MNRAS paper
+%
+% v3.0 released 14 May 2015
+% (version numbers match those of mnras.cls)
+%
+% Copyright (C) Royal Astronomical Society 2015
+% Authors:
+% Keith T. Smith (Royal Astronomical Society)
+
+% Change log
+%
+% v3.0 May 2015
+%    Renamed to match the new package name
+%    Version number matches mnras.cls
+%    A few minor tweaks to wording
+% v1.0 September 2013
+%    Beta testing only - never publicly released
+%    First version: a simple (ish) template for creating an MNRAS paper
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Basic setup. Most papers should leave these options alone.
+\documentclass[fleqn,usenatbib]{mnras}
+
+% MNRAS is set in Times font. If you don't have this installed (most LaTeX
+% installations will be fine) or prefer the old Computer Modern fonts, comment
+% out the following line
+\usepackage{newtxtext,newtxmath}
+% Depending on your LaTeX fonts installation, you might get better results with one of these:
+%\usepackage{mathptmx}
+%\usepackage{txfonts}
+
+% Use vector fonts, so it zooms properly in on-screen viewing software
+% Don't change these lines unless you know what you are doing
+\usepackage[T1]{fontenc}
+
+% Allow "Thomas van Noord" and "Simon de Laguarde" and alike to be sorted by "N" and "L" etc. in the bibliography.
+% Write the name in the bibliography as "\VAN{Noord}{Van}{van} Noord, Thomas"
+\DeclareRobustCommand{\VAN}[3]{#2}
+\let\VANthebibliography\thebibliography
+\def\thebibliography{\DeclareRobustCommand{\VAN}[3]{##3}\VANthebibliography}
+
+
+%%%%% AUTHORS - PLACE YOUR OWN PACKAGES HERE %%%%%
+
+% Only include extra packages if you really need them. Common packages are:
+\usepackage{graphicx}	% Including figure files
+\usepackage{amsmath}	% Advanced maths commands
+\usepackage{amssymb}	% Extra maths symbols
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%% AUTHORS - PLACE YOUR OWN COMMANDS HERE %%%%%
+
+% Please keep new commands to a minimum, and use \newcommand not \def to avoid
+% overwriting existing commands. Example:
+%\newcommand{\pcm}{\,cm$^{-2}$}	% per cm-squared
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%
+
+% Title of the paper, and the short title which is used in the headers.
+% Keep the title short and informative.
+\title[ASPIRED]{Automate your spectral data reduction with Automated SpectroPhotometric Image REDuction (ASPIRED) pipeline builder}
+
+% The list of authors, and the short list which is used in the headers.
+% If you need two or more lines of authors, add an extra line using \newauthor
+\author[M. C. Lam et al.]{
+Marco C. Lam,$^{1, 2, 3}$\thanks{E-mail: lam@tau.ac.il}
+Robert J. Smith,$^{2}$
+Josh Veitch-Michaelis,$^{2}$
+P. Ross McWhirter,$^{2}$
+Iain A. Steele,$^{2}$
+\newauthor
+Iair Arcavi,$^{1}$
+Lukasz Wyrzykowski$^{3}$
+\\
+% List of institutions
+$^{1}$Tel Aviv University\\
+$^{2}$Liverpool John Moores University\\
+$^{3}$Warsaw University
+}
+
+% These dates will be filled out by the publisher
+\date{Accepted XXX. Received YYY; in original form ZZZ}
+
+% Enter the current year, for the copyright statements etc.
+\pubyear{2021}
+
+% Don't change these lines
+\begin{document}
+\label{firstpage}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\maketitle
+
+% Abstract of the paper
+\begin{abstract}
+We provide a suite of publicly available spectral data reduction software
+to facilitate rapid scientific outcomes from time-domain observations. The Automated
+SpectroPhotometric REDuction (\textsc{ASPIRED}) pipeline builder, designed for common
+use on different instruments. The default settings support many typical long-slit
+spectrometer configurations, whilst it also offers a flexible set of functions for
+users to refine and tailor-make their automated pipelines to an instrument's
+individual characteristics. Such automation provides near real-time data reduction
+to allow adaptive observing strategies, which is particularly important in the Time
+Domain Astronomy.
+\end{abstract}
+
+% Select between one and six entries from the list of approved keywords.
+% Don't make up new ones.
+\begin{keywords}
+keyword1 -- keyword2 -- keyword3
+\end{keywords}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%% BODY OF PAPER %%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+With major global investments in multi-wavelength and multi-messenger surveys, time domain
+astronomy is entering a golden age. To maximally scientific exploit discoveries from these
+facilities rapid spectroscopic follow-up observations of transient objects~(e.g.,\ supernovae,
+gravitational wave optical counterparts etc.) will provide crucial {\em astrophysical} 
+interpretations. Part of the OPTICON\footnote{\url{https://www.astro-opticon.org/}} project
+coordinates the operation of a network of largely self-funded European robotic and conventional
+telescopes, coordinating common science goals and providing the tools to deliver science-ready
+photometric and spectroscopic data. As part of this activity SPRAT~\citep{2014SPIE.9147E..8HP}
+was developed as a compact, reliable, low-cost and high-throughput spectrograph and appropriate
+for deployment on a wide range of 1-4\,m class telescopes. Installed on the Liverpool Telescope
+since 2014, the deployable slit and grating mechanism and optical fibre based calibration
+system make the instrument self-contained. Copies of SPRAT are being built for other 
+telescopes. Our final task is to deliver software that can be easily configured to build
+pipelines for long slit spectrographs on different telescopes.
+
+The ``industrial standard'' of spectral and image reduction is of no doubt the
+\texttt{iraf} software~\citep{1986SPIE..627..733T, 1993ASPC...52..173T}. It has powered many
+reduction engines in the past and present. However, unfortunately, the software has reached
+the end-of-support state where there will no longer be any official support to the software
+and it relies entirely on community support\footnote{\url{https://iraf-community.github.io/}}.
+In this generation of user-side Astronomy data handling and processing, as well as the
+computing courses for Scientists, \texttt{Python} is among the most popular languages due to
+its ease to use with a shallow learning curve, readable syntax and simple way to ``glue''
+different pieces of software together. Its flexibility to serve as a scripting and an
+object-oriented language makes it useful in many use cases: demonstrating with visual tools
+with little overhead, prototyping, web-serving, be compiled if wanted. This broad range of
+functionality and high level usage make it relatively inefficient. However, \texttt{Python}
+is an excellent choice of language to build wrappers over highly efficient and well
+established codes. In fact, some of the most used packages,
+\texttt{scipy}~\citep{2020SciPy-NMeth} and \texttt{numpy}~\citep{2020NumPy-Array},
+are written in \texttt{Fortran} and \texttt{C} respectively. Multi-threading and -processing
+are also possible with built-in and other third party packages, e.g.\ mpi4py~\citep{DALCIN20111124}. 
+Varies efforts are made to develop a software for the (this/)next-generation data reduction,
+for example, \texttt{PypeIt}~\citep{pypeit:zenodo, pypeit:joss_pub} for taylor-made reductions
+for a list of instruments, \texttt{PyReduce}~\citep{2021A&A...646A..32P} designed for optimal
+Echelle spectral reduction which does not handle sky subtraction;
+in the \texttt{Astropy} ``Universe''~\citep{astropy:2013, astropy:2018}, \texttt{specreduce}
+is likely to be the next-generation user-focused data reduction package, but it is far from
+the stage of deployment at the time of writing, \texttt{pyDIS} which has all the essential
+ingredients for reducing spectra but it is out of maintenance since 2016, \texttt{specutils}
+handles spectral analysis and manipulation but not reduction itself.
+
+We use SPRAT-family as our first-light instruments for the development, but our aim is to
+allow high level tools for users to build and fine tune their pipelines to support
+a wide range of instruments. As of time of writing, we have successfully reduced data
+from WHT/ISIS, LCO/FLOYDS, GEMINI/GMOS-LS, GTC/OSIRIS, and TNG/DOLORES; all of these are
+unofficial pipelines.
+
+By delivering near real-time data reduction we will facilitate automated or interactive
+decision making, allowing "on-the-fly" modification of observing strategies and rapid
+triggering of other facilities.
+
+This paper is organised as follow, in section 2.
+
+\section{Development and Maintenance Process}
+
+\section{Structure of ASPIRED}
+
+\subsection*{Image Reduction}
+
+\subsection*{Spectral Reduction}
+
+\subsection*{Standard Stars}
+
+\subsection*{1D Spectrum}
+
+\section{Spectral Reduction}
+
+\subsection{Spectral Tracing}
+
+\subsection{Image Rectification}
+
+\subsection{Spectral Extraction}
+
+\subsubsection*{Tophat Extraction}
+
+\subsubsection*{Horne 86 Optimal Extraction}
+
+\subsubsection*{Marsh 89 Optimal Extraction}
+
+\subsection{Wavelength Calibration}
+
+\subsection{Flux Calibration}
+
+\subsubsection*{Continuum Fitting}
+
+\subsubsection*{Smoothing}
+
+\subsubsection*{Atmospheric Extinction Correction}
+
+\section{Deployment}
+
+\subsection{Liverpool Telescope/SPRAT}
+
+\subsection{Leseide Telescope/MOKOODI}
+
+\section{Distribution}
+
+\section*{Acknowledgements}
+
+The Acknowledgements section is not numbered. Here you can thank helpful
+colleagues, acknowledge funding agencies, telescopes and facilities used etc.
+Try to keep it short.
+
+
+
+%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%
+
+% The best way to enter references is to use BibTeX:
+
+\bibliographystyle{mnras}
+\bibliography{main} % if your bibtex file is called example.bib
+
+
+% Alternatively you could enter them by hand, like this:
+% This method is tedious and prone to error if you have lots of references
+%\begin{thebibliography}{99}
+%\bibitem[\protect\citeauthoryear{Author}{2012}]{Author2012}
+%Author A.~N., 2013, Journal of Improbable Astronomy, 1, 1
+%\bibitem[\protect\citeauthoryear{Others}{2013}]{Others2013}
+%Others S., 2012, Journal of Interesting Stuff, 17, 198
+%\end{thebibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+\section{Some extra material}
+
+If you want to present additional material which would interrupt the flow of the main paper,
+it can be placed in an Appendix which appears after the list of references.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Don't change these lines
+\bsp	% typesetting comment
+\label{lastpage}
+\end{document}
+
+% End of mnras_template.tex
