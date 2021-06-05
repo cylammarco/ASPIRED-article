@@ -8,7 +8,7 @@ import numpy as np
 data = fits.open('v_s_20180810_27_1_0_2.fits.gz')[0].data
 data = rotate(data, 2.15)
 
-fig1 = plt.figure(1, figsize=(8, 6))
+fig1 = plt.figure(1, figsize=(6, 6))
 fig1.clf()
 
 # top
