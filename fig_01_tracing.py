@@ -8,15 +8,15 @@ import numpy as np
 data = fits.open('v_s_20180810_27_1_0_2.fits.gz')[0].data
 data = rotate(data, 2.15)
 
-fig1 = plt.figure(1, figsize=(6, 6))
-fig1.clf()
+fig = plt.figure(1, figsize=(6, 6))
+fig.clf()
 
 # top
-ax1 = fig1.add_subplot(2, 1, 1)
+ax1 = fig.add_subplot(2, 1, 1)
 # bottom left
-ax2 = fig1.add_subplot(2, 2, 3)
+ax2 = fig.add_subplot(2, 2, 3)
 # bottom right
-ax3 = fig1.add_subplot(2, 2, 4)
+ax3 = fig.add_subplot(2, 2, 4)
 
 ax1.imshow(data, origin='lower', aspect='auto')
 
@@ -103,7 +103,7 @@ ax3.set_xlabel('Pixel shift')
 ax3.set_xlim(-12, 6)
 ax3.set_ylim(0, max(cor1) * 1.05)
 ax3.set_yticks([])
-ax3.legend()
+ax3.legend(loc='lower right', framealpha=0.9)
 
-fig1.tight_layout()
-fig1.savefig('fig_01_tracing.jpg')
+fig.tight_layout()
+fig.savefig('fig_01_tracing.jpg')
