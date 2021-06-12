@@ -395,6 +395,13 @@ in the spatial direction to find the best fit polynomial solution
 for shifting (and scaling) in the dispersion direction for the
 last step of the rectification process.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{fig_02_rectification.jpg}
+    \caption{Caption}
+    \label{fig:rectify}
+\end{figure}
+
 At the time of writing, this process is only possible if there is
 one trace. If more than one trace is found/provided, only the first
 one will get processed. The resampling is performed with
@@ -423,6 +430,13 @@ observations. The extracted spectra and their associated
 uncertainties and sky background counts can be plotted for
 inspection. The residual image can also be exported for
 diagnostics.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{fig_03_extraction_compared.jpg}
+    \caption{Caption}
+    \label{fig:extract}
+\end{figure}
 
 \subsubsection*{Tophat/Normal Extraction}
 The tophat extraction does not weigh the pixels for extraction,
@@ -485,6 +499,13 @@ the fitting solution and its quality.
 The polynomial coefficients for the calibration can be supplied
 directly, which would be useful for stable instruments that
 the shift in the dispersion direction is negligible.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{fig_04_wavelength_calibration_diagnostics.jpg}
+    \caption{Caption}
+    \label{fig:wavecal}
+\end{figure}
 
 \subsection{Flux Calibration}
 When a standard spectrum is wavelength calibrated, it can be
