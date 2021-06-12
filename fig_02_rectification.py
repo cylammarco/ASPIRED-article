@@ -1,9 +1,7 @@
 from astropy.io import fits
 from aspired import spectral_reduction
 from matplotlib import pyplot as plt
-from matplotlib.patches import Rectangle
 from scipy import ndimage
-import copy
 import numpy as np
 
 fits_file = fits.open('ogg2m001-en06-20160111-0005-e00.fits.fz')[1]

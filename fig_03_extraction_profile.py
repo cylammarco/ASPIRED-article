@@ -6,8 +6,6 @@ import numpy as np
 from scipy.ndimage import rotate
 from statsmodels.nonparametric.smoothers_lowess import lowess
 
-plt.ion()
-
 fits_file = fits.open('ogg2m001-en06-20160111-0005-e00.fits.fz')[1]
 data = fits_file.data
 header = fits_file.header
