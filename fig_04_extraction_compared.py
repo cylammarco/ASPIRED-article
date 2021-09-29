@@ -86,6 +86,7 @@ ax3.set_xlim(0, 1024)
 fig.tight_layout()
 fig.subplots_adjust(hspace=0)
 fig.savefig('fig_04_extraction_compared.jpg')
+fig.savefig('fig_04_extraction_compared.pdf')
 
 fig2 = plt.figure(1, figsize=(6, 6))
 fig2.clf()

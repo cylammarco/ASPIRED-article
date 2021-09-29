@@ -107,3 +107,4 @@ ax3.legend(loc='lower right', framealpha=0.9)
 
 fig.tight_layout()
 fig.savefig('fig_01_tracing.jpg')
+fig.savefig('fig_01_tracing.pdf')

@@ -56,8 +56,7 @@ onedspec.from_twodspec(science_twodspec, stype='science')
 onedspec.from_twodspec(standard_twodspec, stype='standard')
 
 # Find the peaks of the arc
-onedspec.find_arc_lines(percentile=5,
-                        prominence=2,
+onedspec.find_arc_lines(prominence=2,
                         distance=5,
                         refine_window_width=3)
 
@@ -82,7 +81,7 @@ onedspec.fit(max_tries=2000)
 onedspec.apply_wavelength_calibration()
 
 onedspec.load_standard('hilt102')
-onedspec.compute_sensitivity()
+onedspec.get_sensitivity()
 onedspec.apply_flux_calibration()
 
 sensitivity = np.array(onedspec.science_spectrum_list[0].sensitivity)
@@ -151,3 +150,4 @@ ax3.set_ylabel(r'Flux ( erg / s / cm$^2$ / A)')
 fig.tight_layout()
 fig.subplots_adjust(hspace=0)
 plt.savefig('fig_06_flux_calibration_diagnostics.jpg')
+plt.savefig('fig_06_flux_calibration_diagnostics.pdf')

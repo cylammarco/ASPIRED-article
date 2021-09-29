@@ -29,8 +29,7 @@ onedspec = spectral_reduction.OneDSpec()
 onedspec.from_twodspec(twodspec, stype='science')
 
 # Find the peaks of the arc
-onedspec.find_arc_lines(percentile=5,
-                        prominence=2,
+onedspec.find_arc_lines(prominence=2,
                         distance=5,
                         refine_window_width=3,
                         display=True,

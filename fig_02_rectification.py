@@ -31,7 +31,7 @@ red.ap_trace(nspec=1,
              fit_deg=7,
              display=False)
 
-red.compute_rectification(upsample_factor=upsample_factor)
+red.get_rectification(upsample_factor=upsample_factor)
 
 img_tmp = ndimage.zoom(red.img, zoom=upsample_factor)
 
@@ -87,3 +87,4 @@ plt.tight_layout()
 plt.subplots_adjust(hspace=0)
 
 fig.savefig('fig_02_rectification.jpg')
+fig.savefig('fig_02_rectification.pdf')
