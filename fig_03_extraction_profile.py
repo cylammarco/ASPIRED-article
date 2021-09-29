@@ -11,7 +11,7 @@ data = fits_file.data
 header = fits_file.header
 data = rotate(data, 6)
 
-red_spatial_mask = np.arange(180, 380)
+red_spatial_mask = np.arange(180, 420)
 red_spec_mask = np.arange(15, 1500)
 
 twodspec = spectral_reduction.TwoDSpec(data,
@@ -26,12 +26,13 @@ twodspec = spectral_reduction.TwoDSpec(data,
                                        log_file_name=None)
 
 twodspec.ap_trace(nspec=1,
-                  nwindow=30,
-                  ap_faint=20,
+                  nwindow=50,
+                  ap_faint=10,
                   trace_width=20,
-                  shift_tol=50,
+                  resample_factor=5,
+                  shift_tol=120,
                   fit_deg=7,
-                  display=False)
+                  display=True)
 
 trace = np.array(twodspec.spectrum_list[0].trace)
 
