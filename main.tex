@@ -73,7 +73,7 @@ Automated SpectroPhotometric Image REDuction (ASPIRED)}
 \author[M. C. Lam et al.]
 {Marco C. Lam,$^{1, 2, 3}$\thanks{E-mail: \href{mailto:lam@tau.ac.il}{lam@tau.ac.il}}
 Robert J. Smith,$^{2}$
-Iair Arcavi,$^{1}$
+Iair Arcavi,$^{1,4}$
 Iain A. Steele,$^{2}$
 Josh Veitch-Michaelis,$^{2}$ and
 \newauthor Lukasz Wyrzykowski$^{3}$
@@ -82,6 +82,7 @@ Josh Veitch-Michaelis,$^{2}$ and
 $^{1}$School of Physics and Astronomy, Tel Aviv University, Tel Aviv 69978, Israel\\
 $^{2}$Astrophysics Research Institute, Liverpool John Moores University, IC2, LSP, 146 Brownlow Hill, Liverpool L3 5RF, UK\\
 $^{3}$Astronomical Observatory, University of Warsaw, Al. Ujazdowskie 4, 00-478, Warszawa, Poland
+$^{4}$CIFAR Azrieli Global Scholars program, CIFAR, Toronto, Canada
 }
 
 % These dates will be filled out by the publisher
@@ -105,7 +106,7 @@ use on different instruments. The default settings support many typical long-sli
 spectrometer configurations, whilst it also offers a flexible set of functions for
 users to refine and tailor-make their automated pipelines to an instrument's
 individual characteristics. Such automation provides near real-time data reduction
-to allow adaptive observing strategies, which is particularly important in the Time
+to allow adaptive observing strategies, which is particularly important in Time
 Domain Astronomy.
 \end{abstract}
 
@@ -121,9 +122,9 @@ keyword1 -- keyword2 -- keyword3
 
 \section{Introduction}
 With major global investments in multi-wavelength and multi-messenger surveys, time-domain
-astronomy is entering a golden age. To maximally scientific exploit discoveries from these
-facilities rapid spectroscopic follow-up observations of transient objects~(e.g.,\ supernovae,
-gravitational wave optical counterparts etc.) will provide crucial {\em astrophysical} 
+astronomy is entering a golden age. To maximally exploit discoveries from these
+facilities, rapid spectroscopic follow-up observations of transient objects~(e.g.,\ supernovae,
+gravitational wave optical counterparts etc.) is needed to provide crucial {\em astrophysical} 
 interpretations. Part of the OPTICON\footnote{\url{https://www.astro-opticon.org}} project
 coordinates the operation of a network of largely self-funded European robotic and conventional
 telescopes, coordinating common science goals and providing the tools to deliver science-ready
@@ -152,7 +153,7 @@ established codes. In fact, some of the most used packages,
 \textsc{scipy}~\citep{2020SciPy-NMeth} and \textsc{numpy}~\citep{2020NumPy-Array},
 are written in \textsc{Fortran} and \textsc{C} respectively. Multi-threading and -processing
 are also possible with built-in and other third-party packages, e.g.\ mpi4py~\citep{DALCIN20111124}. 
-Varies efforts are made to develop a piece of software for the (this/)next-generation data reduction,
+Various efforts are made to develop a piece of software for the (this/)next-generation data reduction,
 for example, \textsc{PypeIt}~\citep{pypeit:zenodo, pypeit:joss_pub} for tailor-made reductions
 for a list of instruments, \textsc{PyReduce}~\citep{2021A&A...646A..32P} designed for optimal
 Echelle spectral reduction which does not handle sky subtraction;
@@ -162,7 +163,7 @@ the stage of deployment at the time of writing, \textsc{pyDIS} which has all the
 ingredients for reducing spectra but it is out of maintenance since 2016, \textsc{specutils}
 handles spectral analysis and manipulation but not the reduction itself.
 
-We use SPRAT-family as our first-light instruments for the development, but our aim is to
+We use the SPRAT family as our first-light instruments for development, but our aim is to
 allow high-level tools for users to build and fine-tune their pipelines to support
 a wide range of instruments~\citep{2020arXiv201203505L, marco_2021_4463569}. As of the time of
 writing, we have successfully reduced data from the William Herschel Telescope
@@ -175,7 +176,7 @@ System for Imaging and low-Intermediate-Resolution Integrated
 Spectroscopy}~\citep[GTC/OSIRIS]{2000SPIE.4008..623C}, and Telescopio Nazionale Galileo
 \textit{Device Optimized for the LOw
 RESolution\footnote{\url{http://www.tng.iac.es/instruments/lrs}}}~(TNG/DOLORES); all of
-these are unofficial pipelines. The examples of these deployment can be found at
+these are unofficial pipelines. The examples of these deployments can be found at
 \url{https://github.com/cylammarco/aspired-example}.
 
 By delivering near real-time data reduction we will facilitate automated or interactive
@@ -195,14 +196,14 @@ The development of ASPIRED is coordinated on Github\footnote{\url{https://github
     \item generating API documentation powered by \textsc{Sphinx}\footnote{\url{https://www.sphinx-doc.org/en/master}} hosted on Read the Docs\footnote{\url{https://aspired.readthedocs.io/en/latest}}.
 \end{enumerate}
 
-The development goal of ASPIRED was to design a piece of software that is as modular and
+The development goal of ASPIRED is to design a piece of software that is as modular and
 portable as possible, we are still maintaining the principal. We rely on as few
 external dependencies as possible, the ones we use are those requiring substantial
-programming effort and have a proven track record on the reliability and/or
-with a plan to keep up with the maintenance  in the foreseeable future. The top
+programming effort and have a proven track record of reliability and/or
+plan to remain maintained  in the foreseeable future. The top
 level explicit dependencies are --
 \textsc{astroscrappy}~\citep{curtis_mccully_2018_1482019, 2001PASP..113.1420V}
-\textsc{astopy}~\citep{astropy:2013, astropy:2018},
+\textsc{astropy}~\citep{astropy:2013, astropy:2018},
 \textsc{ccdproc}~\citep{matt_craig_2017_1069648},
 \textsc{numpy}~\citep{2020NumPy-Array}
 \textsc{plotly}~\citep{plotly},
@@ -210,28 +211,30 @@ level explicit dependencies are --
 \textsc{spectres}~\citep{2017arXiv170505165C}, and
 \textsc{statsmodels}~\citep{seabold2010statsmodels}. 
 
-This article is not intended to serve as an API document, nor is it to review
+This article is not intended to serve as an API document, nor as a review of the
 various methods concerning spectral extraction. Only the high-level
 descriptions and the Scientific and Mathematical technicalities that are
-important to the data reduction processes are reported here. The initial
-work package divided the project broadly into 3 highest level independent
+important to the data reduction processes are reported here. 
+
+The initial
+work package divided the project broadly into three high-level independent
 components:
 
 \subsection*{graphical user interface (not in active development)}
 In the beginning, we commissioned a prototype of the graphical user
 interface\footnote{\url{https://github.com/cylammarco/gASPIRED}}
 \textsc{Electron}\footnote{\url{https://www.electronjs.org}}, which wraps on top of
-\textsc{ASPIRED} without needing to adapt the code to allow the interaction, this is
+\textsc{ASPIRED} without needing to adapt the code . This is
 possible for a few reasons: first, \textsc{Python} is an interpreter, it can execute
-in run time. It is very easy to run itself as a server to handle the response from 
-\textsc{Electron}; second, the using of
+in run time - it is very easy to run itself as a server to handle the response from 
+\textsc{Electron}; second, the use of
 \textsc{plotly}\footnote{\url{https://plotly.com}} as the plotting
-library can enable interactive plotting easily; exporting static and dynamic plots
+library can enable interactive plotting easily - exporting static and dynamic plots
 can be done with ease; third, there is a \textsc{JavaScript} version of
 \textsc{SAOImageDS9}\footnote{\url{https://sites.google.com/cfa.harvard.edu/saoimageds9}}
 that allows rapid and easy interactive image manipulation in a familiar
-fashion~\citep{eric_mandel_2021_596052}. Given the way how \textsc{Electron} and
-\textsc{JS9} work like a web service, this prototype also shows that this can also
+fashion~\citep{eric_mandel_2021_596052}. Given the way in which \textsc{Electron} and
+\textsc{JS9} work like a web service, this prototype also shows that it can also
 be deployed as an online tool. This is, however, no longer in active development
 and is only served as a technology demonstrator of its capability.
 
@@ -246,44 +249,43 @@ peak, the most common best-fit atlas line are chosen from the top candidate
 sets. This acts like a piece-wise linear fit and allows us to extract most of
 the correct matches from both the red and blue ends of the spectrum. RANdom
 SAmple Consensus~\citep[RANSAC,][]{fischler_bolles_1981} is used to robustly
-fit a higher-order polynomial model to the candidate correspondences. All what
-a user is required to do is to supply a list of calibration lines~(pixels), a
+fit a higher-order polynomial model to the candidate correspondences. The user is only required to supply a list of calibration lines~(pixels), a
 list of peaks~(wavelengths), and some knowledge of the system to initialise a
 most appropriate and efficient calibrator~(e.g.\ dispersion resolution).
 
 \subsection*{the rest of the spectral extraction and calibrations (this work)}
 This is the core of the \textsc{ASPIRED}, which mainly handles the spectral
 extraction and calibration processes. The software is organised into
-3 main parts -- the \texttt{image\_reduction}, \texttt{spectral\_reduction},
-and \texttt{spectrum1D}. The first two are the ``overlords'' that wraps
+3 main parts -- \texttt{image\_reduction}, \texttt{spectral\_reduction},
+and \texttt{spectrum1D}. The first two are the ``overlords'' that wrap
 around all the dependant classes and functions to handle all the operations.
-The last one is a data structure and stores the metadata and the extracted
-data. The FITS file I/O handling is also handled by the \texttt{spectrum1D}.
+The third is a data structure and stores the metadata and the extracted
+data. The FITS file I/O handling is also done by \texttt{spectrum1D}.
 
 \subsection*{\texttt{image\_reduction}}
-This work is not intended to provide high-quality image reduction, it only
-provides basic image reduction methods. However, this should be sufficient
-for simple optical systems, which are the target audience of \textsc{ASPIRED}.
+This work intends to 
+provide basic image reduction methods, sufficient
+for simple optical systems, which are the target of \textsc{ASPIRED}.
 This class allows combining, subtracting and dividing of light, dark, bias
 and flat frames. The FITS header of the first light frame provided will be
 copied over, while the rest will be stored as a path to the file. Meta-data
 regarding the image reduction are appended to the end of the FITS header.
-Depending on the convention adopted, The FITS file can be exported to contain
+Depending on the convention adopted, the FITS file can be exported to contain
 an empty \texttt{PrimaryHDU} with the process data stored in the first
 \texttt{ImageHDU} extension as recommended in the FITS Standard
 document\footnote{\url{https://fits.gsfc.nasa.gov/fits_documentation.html}},
 or it can be stored directly in the \texttt{PrimaryHDU} as most users tend
-to opt for. Many forms of interactive and static images can be exported as
-powered by \textsc{Plotly} image renderer.
+to opt for. Many forms of interactive and static images can be exported,
+powered by the \textsc{Plotly} image renderer.
 
 \subsection*{\texttt{spectral\_reduction}}
 This is a large class that covers both 1D and 2D operations. In 2D, it
 provides image rectification, spectral tracing and spectral extraction.
-In 1D, it can perform wavelength calibration, flux calibration, atmospheric
+In 1D, it can perform wavelength calibration, flux calibration, and atmospheric
 extinction correction. Diagnostic images can be exported at each step
 of operation, including the wavelength calibration that wraps around
 \textsc{RASCAL} and uses their native plotting capability. Outputs can
-be in form of FITS or ascii files, e.g.\ CSV, where possible. See the next
+be in FITS or ascii files, e.g.\ CSV, where possible. See the next
 section for the mathematical and scientific descriptions of the various
 methods.
 
@@ -291,8 +293,8 @@ methods.
 This is a data class to provide a uniform format to store the metadata
 and the extracted data throughout the entire spectral extraction process.
 It provides all the FITS and ascii file I/O handling functions, where all
-the higher-level functions wrap over on. It is intended to keep this
-structure as lightweight as possible, so it does not carry any plotting
+the higher-level functions wrap over on. This
+structure is inteded to be as lightweight as possible, so it does not carry any plotting
 instructions. However, data storage in observational data is almost
 exclusively done with FITS files, we believe that the inclusion of the
 FITS I/O can significantly improve usability. While there are many
@@ -577,7 +579,7 @@ because fitting with the magnitudes is a fit in the logarithmic
 space compared to that in flux density, smoothing~(see below)
 will have different effects in the two spaces.
 
-\subsubsection*{Smoothing}
+\subsection*{Smoothing}
 A Savitzky-Golay smoothing
 filter\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.savgol_filter.html}}~\citep[hereafter, SG-filter]{1964AnaCh..36.1627S}
 can be applied to the data before computing the sensitivity curve.
@@ -590,7 +592,7 @@ used independently or in conjunction with the continuum fitting which
 uses a LOWESS filter. By default, the SG-filter is only removing
 significant noise~(e.g.\ those from cosmic rays).
 
-\subsubsection*{Continuum Fitting}
+\subsection*{Continuum Fitting}
 By default, the continuum of the standard spectrum is found for
 deriving the sensitivity curve. This process is used after the
 smoothing procedure if that is set to True. The continuum is found
@@ -622,7 +624,7 @@ reduction.
     \label{fig:wavecal}
 \end{figure}
 
-\subsubsection*{Atmospheric Extinction Correction}
+\subsection*{Atmospheric Extinction Correction}
 \textsc{ASPIRED} has four built-in atmospheric extinction curve at the time
 of writing:
 
@@ -641,8 +643,12 @@ for the comparison plot.
 
 \begin{figure}
     \centering
-    \includegraphics{fig_07_extinction_curve.pdf}
-    \caption{Caption}
+    \includegraphics[width=\columnwidth]{fig_07_extinction_curves.pdf}
+    \caption{The extinction curves measured at the four sites: Roque de los Muchachos
+    Observatory~(2420\,m; blue), Mauna Kea Observatories~(4205\,m; orange),
+    Cerro Paranal Observatory~(2635\,m; green), and La Silla Observatory~(2400\,m; red).
+    The extinction table of La Silla Observatory terminates at $9000$\,\AA. The rise at
+    the red end of the curve is an undesired artefact due to extrapolation.}
     \label{fig:extinction}
 \end{figure}
 
@@ -700,7 +706,8 @@ any use that may be made of the information contained therein.
 This work was partially supported by the Polish NCN grant Daina
 No. 2017/27/L/ST9/03221.
 
-(Iair's ERC)
+MCL is supported by a European Research Council (ERC) grant under the European Union’s Horizon 2020 research and innovation program (grant agreement number 852097).
+IA is a CIFAR Azrieli Global Scholar in the Gravity and the Extreme Universe Program and acknowledges support from that program, from the ERC under the European Union’s Horizon 2020 research and innovation program (grant agreement number 852097), from the Israel Science Foundation (grant number 2752/19), from the United States - Israel Binational Science Foundation (BSF), and from the Israeli Council for Higher Education Alon Fellowship.
 
 The LT is operated on the island of La Palma by Liverpool
 John Moores University in the Spanish Observatorio del Roque
