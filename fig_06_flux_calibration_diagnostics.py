@@ -105,8 +105,8 @@ ax3 = fig.add_subplot(2, 1, 2)
 
 lns1 = ax1.plot(wave[mask], count[mask], label=r"Observed e$^-$ Count")
 lns2 = ax1.plot(wave_literature,
-                flux_literature * 1e17,
-                label=r"Flux (Literature) $\times 10^{17}$")
+                flux_literature * 1e15,
+                label=r"Flux (Literature) $\times 10^{15}$")
 
 lns3 = ax2.plot(wave[mask],
                 sensitivity[mask],

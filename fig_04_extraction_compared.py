@@ -60,9 +60,9 @@ ax1.set_xticks([])
 ax1.set_ylim(120, 145)
 ax1.set_ylabel('Pixel (Spatial)')
 
-ax2.plot(count_tophat, color='red', label='Tophat')
-ax2.plot(count_horne86, color='green', label='Horne86')
-ax2.plot(count_marsh89, color='blue', label='Marsh89')
+ax2.plot(count_tophat, color='red', label='Tophat', lw=3)
+ax2.plot(count_horne86, color='green', label='Horne86', lw=2, ls='dashed')
+ax2.plot(count_marsh89, color='blue', label='Marsh89', lw=1, ls=':')
 
 ax2.set_ylabel(r'e$^{-}$ count')
 ax2.set_ylim(0, 45000)
@@ -108,3 +108,6 @@ ax2.set_xticks([])
 
 fig.tight_layout()
 fig.subplots_adjust(hspace=0)
+
+fig.savefig('fig_04b_extraction_residual_compared.jpg')
+fig.savefig('fig_04b_extraction_residual_compared.pdf')
