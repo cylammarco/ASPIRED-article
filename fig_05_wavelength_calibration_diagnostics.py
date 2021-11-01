@@ -57,6 +57,6 @@ onedspec.add_user_atlas(elements=element,
 onedspec.do_hough_transform(stype='science')
 
 # Solve for the pixel-to-wavelength solution
-onedspec.fit(max_tries=2000, stype='science', display=True)
+onedspec.fit(fit_deg=5, max_tries=2000, stype='science', display=True)
 
 # Note, saved a screenshot instead of saving natively.
